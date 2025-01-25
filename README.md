@@ -17,12 +17,16 @@ Simple API service that takes screenshots of websites.
 ## Setup
 
 1. Install dependencies:
+
 ```bash
 yarn install
+```
 
 2. Start the development server:
+
 ```bash
 yarn dev
+```
 
 ## API Usage
 
@@ -44,6 +48,7 @@ const screenshot = await response.blob();
 ## Development
 
 Build the project:
+
 ```bash
 yarn build
 ```

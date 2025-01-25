@@ -31,3 +31,4 @@ The screenshot image should:
 - Don't need to capture scroll
 - Don't need to capture viewport
 - Don't need to capture full page
+
