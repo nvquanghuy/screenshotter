@@ -2,7 +2,7 @@ import Fastify from 'fastify'
 import puppeteer from 'puppeteer'
 import { Type } from '@sinclair/typebox'
 import { normalizeUrl } from './utils/url'
-import { getCachedScreenshot, cacheScreenshot } from './services/redis'
+import { redis, getCachedScreenshot, cacheScreenshot } from './services/redis'
 
 const server = Fastify({
   logger: true
@@ -121,6 +121,24 @@ server.get('/', async (request, reply) => {
       </body>
     </html>
   `)
+})
+
+server.get('/i', async (request, reply) => {
+  try {
+    await redis.ping()
+    reply.type('application/json').send({
+      status: 'healthy',
+      redis: 'connected',
+      timestamp: new Date().toISOString()
+    })
+  } catch (error) {
+    reply.code(503)
+    reply.type('application/json').send({
+      status: 'unhealthy',
+      redis: 'disconnected',
+      timestamp: new Date().toISOString()
+    })
+  }
 })
 
 const PORT = parseInt(process.env.PORT || '3000')

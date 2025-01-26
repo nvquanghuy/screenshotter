@@ -17,7 +17,7 @@ Simple API service that takes screenshots of websites.
 
 ## Setup
 
-1. Install dependencies:
+1. Install dependencies
 
 ```bash
 yarn install
