@@ -20,10 +20,14 @@ Please make it as simple as possible:
 
 ## API Endpoints
 
-Endpoint: 
-GET /screenshot?url=https://somewebsite.com/path/to/page
+Endpoint: Should support 2 endpoints
+
+- The formal one: GET /s?url=https://somewebsite.com/path/to/page
+- Shortcut one: GET /s/https://somewebsite.com/path/to/page
 
 Response: The screenshot image
+
+Should work well even when URL doesn't have prefix http(s).
 
 The screenshot image should:
 - Be a PNG
