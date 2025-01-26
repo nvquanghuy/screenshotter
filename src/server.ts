@@ -89,16 +89,6 @@ server.get('/s/*', {
   await handleScreenshot(url, reply)
 })
 
-// Start server
-const start = async () => {
-  try {
-    await server.listen({ port: 3000 })
-  } catch (err) {
-    server.log.error(err)
-    process.exit(1)
-  }
-}
-
 // Root endpoint with usage instructions
 server.get('/', async (request, reply) => {
   reply.type('text/html').send(`
@@ -132,5 +122,21 @@ server.get('/', async (request, reply) => {
     </html>
   `)
 })
+
+const PORT = process.env.PORT || 3000
+const HOST = '0.0.0.0'
+
+// Start server
+const start = async () => {
+  try {
+    await server.listen({ 
+      port: PORT,
+      host: HOST
+    })
+  } catch (err) {
+    server.log.error(err)
+    process.exit(1)
+  }
+}
 
 start()

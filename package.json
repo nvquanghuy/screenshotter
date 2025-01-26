@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "vercel-build": "tsc",
+    "vercel-deploy": "vercel deploy --prod"
   },
   "keywords": [],
   "author": "",

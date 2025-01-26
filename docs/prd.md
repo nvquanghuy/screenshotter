@@ -25,7 +25,13 @@ Code should be maintainable, readable and testable.
 
 ## API endpoints
 
-Endpoint: Should support 2 endpoints
+### Home endpoint
+
+Should return a simple landing page showing how to use the API.
+
+### Screenshot endpoint
+
+Should support 2 endpoints
 
 - The formal one: GET /s?url=https://somewebsite.com/path/to/page
 - Shortcut one: GET /s/https://somewebsite.com/path/to/page
@@ -54,10 +60,16 @@ Technical:
 
 ## Deployment
 
-Currently it's stateless. Data is ephermeral.
+A number of deployment  options are available.
 
-How should we do deployment?
-- Serverless
-  - Either AWS or GCP
-  - Use database service separately
-- Docker
+### Docker
+
+- Docker image
+- One for app, one for Redis
+- Use Docker Compose for orchestration
+- Use GitHub Actions for CI/CD
+
+### Vercel
+
+There should be a Vercel project for the app.
+
