@@ -66,7 +66,10 @@ async function handleScreenshot(url: string, reply: any) {
     reply.header('Content-Type', 'image/png')
     reply.send(screenshot)
   } catch (error) {
-    reply.code(500).send({ error: 'Failed to capture screenshot' })
+    reply.code(500).send({
+      error: 'Failed to capture screenshot',
+      details: error
+    })
   }
 }
 // Route 1: /s?url=
