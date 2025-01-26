@@ -11,12 +11,15 @@ Let's build a simple API to take website screenshots
 
 ## Technical Stack
 
-Please make it as simple as possible:
+Please make it as simple as possible to the requirements. Don't over-engineer it unless necessary.
+
 - NodeJS with Typescript
 - Yarn for package manager
 - Use Node v22 LTS
 - Use Fastify as backend framework
 - Puppeteer/Playwright for screenshots
+
+There should be proper unit tests.
 
 ## API Endpoints
 

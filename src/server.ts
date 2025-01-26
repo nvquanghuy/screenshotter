@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import puppeteer from 'puppeteer'
 import { Type } from '@sinclair/typebox'
+import { normalizeUrl } from './utils/url'
 
 const server = Fastify({
   logger: true
@@ -27,10 +28,7 @@ async function captureScreenshot(url: string) {
   })
 
   try {
-    const normalizedUrl = url.startsWith('http://') || url.startsWith('https://')
-      ? url
-      : `https://${url}`
-
+    const normalizedUrl = normalizeUrl(url)
     await page.goto(normalizedUrl, {
       waitUntil: 'networkidle0'
     })

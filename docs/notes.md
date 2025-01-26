@@ -1,5 +1,6 @@
 # TODO
-
+- [ ] Implement URL validation
+- [ ] Unit tests
 
 ---
 
