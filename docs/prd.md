@@ -9,19 +9,21 @@ Let's build a simple API to take website screenshots
   - Take screenshot
   - Return the image
 
-## Technical Stack
+## Technical stack
 
-Please make it as simple as possible to the requirements. Don't over-engineer it unless necessary.
+When picking technology, consider make it as simple as possible to the requirements. Don't over-engineer unless necessary.
 
+Recommended stack:
 - NodeJS with Typescript
 - Yarn for package manager
-- Use Node v22 LTS
-- Use Fastify as backend framework
+- Node v22 LTS
+- Fastify as backend framework
 - Puppeteer/Playwright for screenshots
 
 There should be proper unit tests.
+Code should be maintainable, readable and testable.
 
-## API Endpoints
+## API endpoints
 
 Endpoint: Should support 2 endpoints
 
@@ -39,3 +41,23 @@ The screenshot image should:
 - Don't need to capture viewport
 - Don't need to capture full page
 
+## Image storage and caching
+
+Mechanism:
+- Once generated, the image should be stored somewhere.
+- If the same URL is requested again, the image should be retrieved from storage instead of generating it again.
+- The image should have a TTL (time to live) and should be removed from storage once expired.
+
+Technical:
+- Use Redis for storing the image.
+- Use Redis TTL for image expiration.
+
+## Deployment
+
+Currently it's stateless. Data is ephermeral.
+
+How should we do deployment?
+- Serverless
+  - Either AWS or GCP
+  - Use database service separately
+- Docker

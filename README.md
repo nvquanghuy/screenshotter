@@ -13,6 +13,7 @@ Simple API service that takes screenshots of websites.
 
 - Node.js v22 LTS
 - Yarn package manager
+- Redis
 
 ## Setup
 
@@ -22,7 +23,19 @@ Simple API service that takes screenshots of websites.
 yarn install
 ```
 
-2. Start the development server:
+2. Configure `.env`
+
+```
+cp .env.sample .env
+```
+
+3. Start Redis (if not already running):
+
+```
+docker run --name redis -p 6379:6379 -d redis
+```
+
+4. Start the development server:
 
 ```bash
 yarn dev
@@ -44,25 +57,3 @@ Example using fetch:
 const response = await fetch('http://localhost:3000/screenshot?url=https://example.com');
 const screenshot = await response.blob();
 ```
-
-## Development
-
-Build the project:
-
-```bash
-yarn build
-```
-
-Run tests:
-```bash
-yarn test
-```
-
-## Environment Variables
-
-Create a `.env` file in the root directory:
-
-```env
-PORT=3000
-NODE_ENV=development
-

@@ -2,6 +2,7 @@ import Fastify from 'fastify'
 import puppeteer from 'puppeteer'
 import { Type } from '@sinclair/typebox'
 import { normalizeUrl } from './utils/url'
+import { getCachedScreenshot, cacheScreenshot } from './services/redis'
 
 const server = Fastify({
   logger: true
@@ -37,22 +38,37 @@ async function captureScreenshot(url: string) {
       type: 'png'
     })
 
-    return screenshot
+    // Convert Uint8Array to Buffer
+    return Buffer.from(screenshot)
   } finally {
     await browser.close()
   }
 }
-// Handler for both endpoints
+
+// Modified screenshot capture logic with caching
 async function handleScreenshot(url: string, reply: any) {
   try {
-    const screenshot = await captureScreenshot(url)
+    const normalizedUrl = normalizeUrl(url)
+    
+    // Check cache first
+    const cached = await getCachedScreenshot(normalizedUrl)
+    if (cached) {
+      reply.header('Content-Type', 'image/png')
+      return reply.send(cached)
+    }
+
+    // If not cached, generate new screenshot
+    const screenshot = await captureScreenshot(normalizedUrl)
+    
+    // Cache the new screenshot
+    await cacheScreenshot(normalizedUrl, screenshot)
+    
     reply.header('Content-Type', 'image/png')
     reply.send(screenshot)
   } catch (error) {
     reply.code(500).send({ error: 'Failed to capture screenshot' })
   }
 }
-
 // Route 1: /s?url=
 server.get('/s', {
   schema: {
