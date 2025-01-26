@@ -94,14 +94,14 @@ server.get('/', async (request, reply) => {
   reply.type('text/html').send(`
     <html>
       <head>
-        <title>Screenshot API Usage</title>
+        <title>Screenshotter</title>
         <style>
           body { font-family: system-ui; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
           code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
         </style>
       </head>
       <body>
-        <h1>Screenshot API Usage</h1>
+        <h1>Screenshotter</h1>
         <p>This API provides webpage screenshots in PNG format (1000px wide)</p>
         
         <h2>Endpoints:</h2>
@@ -123,7 +123,7 @@ server.get('/', async (request, reply) => {
   `)
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = parseInt(process.env.PORT || '3000')
 const HOST = '0.0.0.0'
 
 // Start server
@@ -139,4 +139,4 @@ const start = async () => {
   }
 }
 
-start()
+start();
