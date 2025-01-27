@@ -38,6 +38,7 @@
         dest: "{{ app_dir }}"
         version: main
         force: yes
+        accept_hostkey: yes
 
     - name: Install dependencies
       yarn:
@@ -60,9 +61,9 @@
         global: yes
 
     - name: Build application
-      yarn:
-        path: "{{ app_dir }}"
-        cmd: build
+      command: yarn build
+      args:
+        chdir: "{{ app_dir }}"
 
     - name: Start application with PM2
       shell: pm2 start "yarn start" --name screenshotter
