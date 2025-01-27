@@ -4,6 +4,7 @@
   become: true
   vars:
     app_dir: /opt/screenshotter
+    repo_url: git@github.com:nvquanghuy/screenshotter.git
     node_version: "22"
 
   tasks:
