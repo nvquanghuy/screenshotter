@@ -25,6 +25,12 @@ Recommended stack:
 There should be proper unit tests.
 Code should be maintainable, readable and testable.
 
+## Web server
+
+nginx should be used:
+- To map port 80 to NodeJS app
+- SSL termination
+
 ## API endpoints
 
 ### Home endpoint
@@ -67,6 +73,10 @@ A number of deployment options are available.
 ### Ansible/Puppet
 
 - Use Ansible/Puppet for deployment
+- Notes:
+  - When runnning deploy locally, make sure ssh agent is on
+    - `eval $(ssh-agent)`
+    - `ssh-add ~/.ssh/id_rsa`
 
 ### Docker
 
