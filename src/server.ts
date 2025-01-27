@@ -1,8 +1,10 @@
+require('dotenv').config()
 import Fastify from 'fastify'
 import { Type } from '@sinclair/typebox'
 import { normalizeUrl } from './utils/url'
 import { redis, getCachedScreenshot, cacheScreenshot } from './services/redis'
 import { screenshotter } from './services/screenshotter'
+
 
 const server = Fastify({
   logger: true
