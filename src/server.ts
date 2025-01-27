@@ -1,70 +1,39 @@
 import Fastify from 'fastify'
-import puppeteer from 'puppeteer'
 import { Type } from '@sinclair/typebox'
 import { normalizeUrl } from './utils/url'
 import { redis, getCachedScreenshot, cacheScreenshot } from './services/redis'
+import { screenshotter } from './services/screenshotter'
 
 const server = Fastify({
   logger: true
 })
 
-// Query schema for /s?url= endpoint
-const QuerySchema = Type.Object({
-  url: Type.String({ format: 'uri' })
-})
+async function getBrowser() {
+  // return puppeteer.launch()
 
-// Params schema for /s/:url endpoint
-const ParamsSchema = Type.Object({
-  '*': Type.String()
-})
-
-// Shared screenshot capture logic
-async function captureScreenshot(url: string) {
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
-  
-  await page.setViewport({
-    width: 1000,
-    height: 800
-  })
-
-  try {
-    const normalizedUrl = normalizeUrl(url)
-    await page.goto(normalizedUrl, {
-      waitUntil: 'networkidle0'
-    })
-
-    const screenshot = await page.screenshot({
-      type: 'png'
-    })
-
-    // Convert Uint8Array to Buffer
-    return Buffer.from(screenshot)
-  // } catch (error) {
-  //   server.log.error('Error capturing screenshot of ' + url + ': ' + error)
-  //   return null
-  } finally {
-    await browser.close()
-  }
+  // return puppeteer.launch({
+  //   executablePath: '/usr/bin/chromium',
+  //   headless: true,
+  //   args: [
+  //     '--no-sandbox',
+  //     '--disable-setuid-sandbox',
+  //     '--disable-dev-shm-usage',
+  //     '--disable-gpu'
+  //   ]
+  // })
 }
 
 // Modified screenshot capture logic with caching
 async function handleScreenshot(url: string, reply: any) {
   try {
-    const normalizedUrl = normalizeUrl(url)
-    
-    // Check cache first
-    const cached = await getCachedScreenshot(normalizedUrl)
+    const cached = await getCachedScreenshot(url)
     if (cached) {
       reply.header('Content-Type', 'image/png')
       return reply.send(cached)
     }
 
-    // If not cached, generate new screenshot
-    const screenshot = await captureScreenshot(normalizedUrl)
-    
-    // Cache the new screenshot
-    await cacheScreenshot(normalizedUrl, screenshot)
+    const screenshot = await screenshotter.capture(url)
+    await cacheScreenshot(url, screenshot)
     
     reply.header('Content-Type', 'image/png')
     reply.send(screenshot)
@@ -75,24 +44,18 @@ async function handleScreenshot(url: string, reply: any) {
     })
   }
 }
+
 // Route 1: /s?url=
+const QuerySchema = Type.Object({
+  url: Type.String({ format: 'uri' })
+})
 server.get('/s', {
   schema: {
     querystring: QuerySchema
   }
 }, async (request, reply) => {
   const { url } = request.query as { url: string }
-  await handleScreenshot(url, reply)
-})
-
-// Route 2: /s/:url
-server.get('/s/*', {
-  schema: {
-    params: ParamsSchema
-  }
-}, async (request, reply) => {
-  const { '*': url } = request.params as { '*': string }
-  await handleScreenshot(url, reply)
+  await handleScreenshot(normalizeUrl(url), reply)
 })
 
 // Root endpoint with usage instructions

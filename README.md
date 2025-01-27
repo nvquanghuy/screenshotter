@@ -9,6 +9,14 @@ Simple API service that takes screenshots of websites.
 - Built with Node.js, TypeScript, and Fastify
 - Uses Playwright for reliable web screenshots
 
+## TODOs
+
+- [ ] Add caching of image
+- [ ] Rate limits
+- [ ] Concurrent request handling
+- [ ] Security (malicious URLs, resource limits)
+
+
 ## Prerequisites
 
 - Node.js v22 LTS

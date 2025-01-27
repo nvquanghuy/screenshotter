@@ -1,3 +1,4 @@
+# Screenshotter PRD
 
 ## Requirements
 
@@ -8,6 +9,7 @@ Let's build a simple API to take website screenshots
   - Open URL in browser
   - Take screenshot
   - Return the image
+  - Cache the image for limited time
 
 ## Technical stack
 

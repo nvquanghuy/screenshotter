@@ -17,5 +17,4 @@
 - Browser instance management
 - Concurrent request handling
 - Caching strategy for repeat URLs
-- Security (malicious URLs, resource limits)
 
