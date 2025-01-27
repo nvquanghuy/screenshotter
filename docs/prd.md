@@ -60,7 +60,7 @@ Technical:
 
 ## Deployment
 
-A number of deployment  options are available.
+A number of deployment options are available.
 
 ### Docker
 
@@ -69,7 +69,7 @@ A number of deployment  options are available.
 - Use Docker Compose for orchestration
 - Use GitHub Actions for CI/CD
 
-### Vercel
+### Vercel (serverless)
 
 There should be a Vercel project for the app.
 

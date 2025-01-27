@@ -5,9 +5,23 @@ export const redis = new Redis(
 
 const CACHE_TTL = 60 * 60 * 24 // 24 hours in seconds
 
+export async function cacheConnected() {
+  try {
+    await redis.ping()
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function getCachedScreenshot(url: string): Promise<Buffer | null> {
-  const cached = await redis.getBuffer(url)
-  return cached
+  try {
+    const cached = await redis.getBuffer(url)
+    return cached
+  } catch (error) {
+    console.error("Error getting cached screenshot for " + url, error)
+    return null
+  }
 }
 
 export async function cacheScreenshot(url: string, screenshot: Buffer): Promise<void> {
