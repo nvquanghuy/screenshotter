@@ -64,6 +64,10 @@ Technical:
 
 A number of deployment options are available.
 
+### Ansible/Puppet
+
+- Use Ansible/Puppet for deployment
+
 ### Docker
 
 - Docker image

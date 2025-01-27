@@ -1,6 +1,5 @@
-FROM node:22-slim
+FROM --platform=linux/arm64 node:22-slim
 
-# Install Chrome and dependencies with platform-specific setup
 RUN apt-get update \
     && apt-get install -y wget gnupg2 \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
@@ -15,7 +14,6 @@ RUN apt-get install -y chromium \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get install -y \
-    chromium \
     libgbm1 \
     libnss3 \
     libatk1.0-0 \
@@ -29,8 +27,9 @@ RUN apt-get install -y \
     libxrandr2 \
     libasound2
 
-
 WORKDIR /app
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile

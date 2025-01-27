@@ -1,0 +1,70 @@
+---
+- name: Deploy Screenshotter
+  hosts: screenshot_servers
+  become: true
+  vars:
+    app_dir: /opt/screenshotter
+    node_version: "22"
+
+  tasks:
+    - name: Install Node.js repository
+      shell: |
+        curl -fsSL https://deb.nodesource.com/setup_{{ node_version }}.x | bash -
+
+    - name: Install required packages
+      apt:
+        name: 
+          - nodejs
+          - redis-server
+          - git
+        state: present
+        update_cache: yes
+
+    - name: Install yarn globally
+      npm:
+        name: yarn
+        global: yes
+
+    - name: Create app directory
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Clone/pull repository
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ app_dir }}"
+        version: main
+        force: yes
+
+    - name: Install dependencies
+      yarn:
+        path: "{{ app_dir }}"
+
+    - name: Copy environment file
+      template:
+        src: .env.j2
+        dest: "{{ app_dir }}/.env"
+
+    - name: Start Redis service
+      service:
+        name: redis-server
+        state: started
+        enabled: yes
+
+    - name: Install PM2 globally
+      npm:
+        name: pm2
+        global: yes
+
+    - name: Build application
+      yarn:
+        path: "{{ app_dir }}"
+        cmd: build
+
+    - name: Start application with PM2
+      shell: pm2 start "yarn start" --name screenshotter
+      args:
+        chdir: "{{ app_dir }}"
+

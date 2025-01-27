@@ -1,0 +1,7 @@
+- name: Include Chromium installation tasks
+  include_tasks: chromium.yml
+
+- name: Verify Chromium installation
+  command: chromium-browser --version
+  register: chromium_version
+  changed_when: false

@@ -1,0 +1,12 @@
+- name: Install Chromium browser and dependencies
+  apt:
+    name: chromium-browser
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Ensure Chromium browser permissions
+  file:
+    path: /usr/bin/chromium
+    mode: '0755'
+  become: true

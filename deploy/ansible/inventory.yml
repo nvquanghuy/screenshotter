@@ -1,0 +1,9 @@
+---
+all:
+  children:
+    screenshot_servers:
+      hosts:
+        screenshot1:
+          ansible_host: screenshotter
+          ansible_user: root
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa

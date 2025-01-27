@@ -4,7 +4,17 @@ import { normalizeUrl } from '../utils/url'
 
 export class Screenshotter {
   private async getBrowser() {
-    return puppeteer.launch()
+    return puppeteer.launch({
+      headless: true,
+      executablePath: '/usr/bin/chromium',
+      args: [
+        '--no-sandbox',         // Disable Chrome's sandbox (common in Docker/CI)
+        '--disable-setuid-sandbox',        
+        '--disable-dev-shm-usage',  // Prevent /dev/shm temporary directory issues
+        // '--disable-gpu',            // Disable GPU hardware acceleration
+        // '--disable-extensions',     // Disable Chrome extensions
+      ]
+    })
   }
 
   async capture(url: string): Promise<Buffer> {

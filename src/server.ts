@@ -8,21 +8,6 @@ const server = Fastify({
   logger: true
 })
 
-async function getBrowser() {
-  // return puppeteer.launch()
-
-  // return puppeteer.launch({
-  //   executablePath: '/usr/bin/chromium',
-  //   headless: true,
-  //   args: [
-  //     '--no-sandbox',
-  //     '--disable-setuid-sandbox',
-  //     '--disable-dev-shm-usage',
-  //     '--disable-gpu'
-  //   ]
-  // })
-}
-
 // Modified screenshot capture logic with caching
 async function handleScreenshot(url: string, reply: any) {
   try {
