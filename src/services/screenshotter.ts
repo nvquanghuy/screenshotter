@@ -6,7 +6,7 @@ export class Screenshotter {
   private async getBrowser() {
     return puppeteer.launch({
       headless: true,
-      executablePath: '/usr/bin/chromium',
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: [
         '--no-sandbox',         // Disable Chrome's sandbox (common in Docker/CI)
         '--disable-setuid-sandbox',        
