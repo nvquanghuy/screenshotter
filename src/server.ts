@@ -40,8 +40,9 @@ async function captureScreenshot(url: string) {
 
     // Convert Uint8Array to Buffer
     return Buffer.from(screenshot)
-  } catch (error) {
-    server.log.error('Error capturing screenshot of ' + url + ': ' + error)
+  // } catch (error) {
+  //   server.log.error('Error capturing screenshot of ' + url + ': ' + error)
+  //   return null
   } finally {
     await browser.close()
   }

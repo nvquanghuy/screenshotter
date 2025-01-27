@@ -9,8 +9,7 @@
     "start": "node dist/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "vercel-build": "tsc",
-    "vercel-deploy": "vercel deploy --prod"
+    "vercel-build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -18,13 +17,13 @@
   "dependencies": {
     "@fastify/type-provider-typebox": "^5.1.0",
     "@sinclair/typebox": "^0.34.14",
-    "@types/node": "^22.10.10",
     "fastify": "^5.2.1",
     "ioredis": "^5.4.2",
     "puppeteer": "^24.1.1",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "@types/node": "^22.10.10",
     "@types/ioredis": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/supertest": "^6.0.2",
