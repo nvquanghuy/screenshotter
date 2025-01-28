@@ -11,11 +11,9 @@ Simple API service that takes screenshots of websites.
 
 ## TODOs
 
-- [ ] Add caching of image
+- [x] Add caching of screenshots based on URL
 - [ ] Rate limits
 - [ ] Concurrent request handling
-- [ ] Security (malicious URLs, resource limits)
-
 
 ## Prerequisites
 
@@ -70,4 +68,12 @@ Example using fetch:
 ```javascript
 const response = await fetch('http://localhost:3000/https://example.com');
 const screenshot = await response.blob();
+```
+
+## Deployment
+
+Deploy using Ansible:
+
+```bash
+./deploy/deploy_ansible
 ```
