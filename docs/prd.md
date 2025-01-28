@@ -39,14 +39,14 @@ Should return a simple landing page showing how to use the API.
 
 ### Screenshot endpoint
 
-GET /s/https://somewebsite.com/path/to/page
+GET /https://somewebsite.com/path/to/page
 
 Make sure it handles query string and hash of the URL variable. E.g It should handle `/s/https://site.com?a=1&b=2#cde` by including the entire string after '?'`.
 
 The intention is for end users to just copy the URL and append it at the end of the app's URL.
 
 Example:
-https://screenshotter.com/s/https://site.com?a=1&b=2#cde
+https://screenshotter.com/https://site.com?a=1&b=2#cde
 
 should capture screenshot of: https://site.com?a=1&b=2#cde
 
