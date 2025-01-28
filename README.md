@@ -37,10 +37,13 @@ yarn install
 cp .env.sample .env
 ```
 
-3. Start Redis (if not already running):
+3. Make sure you have Redis running locally. Either in Docker or not.
 
 ```
 docker run --name redis -p 6379:6379 -d redis
+# or
+redis-server
+
 ```
 
 4. Start the development server:
@@ -49,12 +52,15 @@ docker run --name redis -p 6379:6379 -d redis
 yarn dev
 ```
 
+5. Visit local app: [http://localhost:3000](http://localhost:3000)
+
+
 ## API Usage
 
 Send a GET request to take a screenshot:
 
 ```bash
-curl "http://localhost:3000/screenshot?url=https://example.com"
+curl "http://localhost:3000/https://example.com"
 ```
 
 The API will return a PNG image of the requested website.
@@ -62,6 +68,6 @@ The API will return a PNG image of the requested website.
 Example using fetch:
 
 ```javascript
-const response = await fetch('http://localhost:3000/screenshot?url=https://example.com');
+const response = await fetch('http://localhost:3000/https://example.com');
 const screenshot = await response.blob();
 ```
