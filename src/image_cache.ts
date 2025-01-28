@@ -14,7 +14,7 @@ export async function cacheConnected() {
   }
 }
 
-export async function getCachedScreenshot(url: string): Promise<Buffer | null> {
+export async function get(url: string): Promise<Buffer | null> {
   try {
     const cached = await redis.getBuffer(url)
     return cached
@@ -24,6 +24,6 @@ export async function getCachedScreenshot(url: string): Promise<Buffer | null> {
   }
 }
 
-export async function cacheScreenshot(url: string, screenshot: Buffer): Promise<void> {
+export async function set(url: string, screenshot: Buffer): Promise<void> {
   await redis.set(url, screenshot, 'EX', CACHE_TTL)
 }

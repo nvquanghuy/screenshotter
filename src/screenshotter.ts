@@ -1,6 +1,6 @@
 
 import puppeteer from 'puppeteer'
-import { normalizeUrl } from '../utils/url'
+import { normalizeUrl } from './utils'
 
 export class Screenshotter {
   private async getBrowser() {

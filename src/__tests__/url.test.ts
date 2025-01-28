@@ -1,4 +1,4 @@
-import { normalizeUrl } from '../utils/url'
+import { normalizeUrl } from '../utils'
 
 describe('URL Utilities', () => {
   test('normalizeUrl adds https:// to URLs without protocol', () => {

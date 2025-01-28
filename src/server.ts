@@ -1,9 +1,9 @@
 require('dotenv').config()
 import Fastify from 'fastify'
 import { Type } from '@sinclair/typebox'
-import { normalizeUrl } from './utils/url'
-import { redis, getCachedScreenshot, cacheScreenshot } from './services/redis'
-import { screenshotter } from './services/screenshotter'
+import { normalizeUrl } from './utils'
+import { redis, get as cacheGet, set as cacheSet } from './image_cache'
+import { screenshotter } from './screenshotter'
 
 
 const server = Fastify({
@@ -15,14 +15,14 @@ async function handleScreenshot(url: string, reply: any) {
   console.log(url);
   server.log.info(`Capturing screenshot of ${url}`)
   try {
-    const cached = await getCachedScreenshot(url)
+    const cached = await cacheGet(url)
     if (cached) {
       reply.header('Content-Type', 'image/png')
       return reply.send(cached)
     }
 
     const screenshot = await screenshotter.capture(url)
-    await cacheScreenshot(url, screenshot)
+    await cacheSet(url, screenshot)
     
     reply.header('Content-Type', 'image/png')
     reply.send(screenshot)
