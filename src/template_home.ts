@@ -18,6 +18,8 @@ export const templateHome = `
     <h2>How to</h2>
     <p>Append your URL to take screenshot after the app URL</p>
     <code>GET /https://example.com</code>
+
+    <p>Each image is cached for 24 hours. If you want to refresh the screenshot, just add a random query parameter</p>
     
     <h2>Take a screenshot</h2>
     <form class="url-form" onsubmit="takeScreenshot(event)">
