@@ -1,3 +1,9 @@
+// Description:
+// This script is a simple example of using Puppeteer to open a webpage and get the title.
+// It is used to test the Puppeteer setup.
+// Usage:
+// node src/smoke-test.js
+
 const puppeteer = require('puppeteer');
 
 async function run() {
